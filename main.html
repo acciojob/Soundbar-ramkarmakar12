@@ -1,16 +1,79 @@
 <!DOCTYPE html>
-
-<html>
-
+<html lang="en">
 <head>
-	<link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sound Buttons</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #9b59b6;
+            font-family: Arial, sans-serif;
+        }
+        #buttons {
+            display: flex;
+            gap: 20px;
+        }
+        .btn {
+            background-color: #5d3483;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 18px;
+            cursor: pointer;
+            border-radius: 10px;
+        }
+        .stop {
+            background-color: red;
+        }
+    </style>
 </head>
-
 <body>
-	<!-- the entire body must be written by student -->
-    <script type="text/javascript" src="./script.js">
-</script>
+		<!-- the entire body must be written by student -->
+    <div id="buttons"></div>
+    <script>
+        const sounds = ['applause', 'boo', 'gasp', 'tada', 'victory', 'wrong'];
 
+        const buttonsContainer = document.getElementById('buttons');
+
+        sounds.forEach(sound => {
+            const btn = document.createElement('button');
+            btn.classList.add('btn');
+            btn.innerText = sound;
+
+            btn.addEventListener('click', () => {
+                stopSounds();
+                document.getElementById(sound).play();
+            });
+
+            buttonsContainer.appendChild(btn);
+        });
+
+        const stopButton = document.createElement('button');
+        stopButton.classList.add('btn', 'stop');
+        stopButton.innerText = 'Stop';
+        stopButton.addEventListener('click', stopSounds);
+        buttonsContainer.appendChild(stopButton);
+
+        function stopSounds() {
+            sounds.forEach(sound => {
+                const audio = document.getElementById(sound);
+                if (audio) {
+                    audio.pause();
+                    audio.currentTime = 0;
+                }
+            });
+        }
+    </script>
+    <audio id="applause" src="sounds/applause.mp3"></audio>
+    <audio id="boo" src="sounds/boo.mp3"></audio>
+    <audio id="gasp" src="sounds/gasp.mp3"></audio>
+    <audio id="tada" src="sounds/tada.mp3"></audio>
+    <audio id="victory" src="sounds/victory.mp3"></audio>
+    <audio id="wrong" src="sounds/wrong.mp3"></audio>
 </body>
-
 </html>
